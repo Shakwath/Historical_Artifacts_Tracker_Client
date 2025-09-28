@@ -1,22 +1,34 @@
 import React from "react";
 import { FaFacebookF, FaInstagram, FaTwitter } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
     <footer className="bg-gray-900 text-gray-300 py-10">
       <div className="max-w-6xl mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-8">
         
-        {/* Column 1 */}
-        <div>
-          <h3 
-          className= "text-gray-400 font-bold mb-4">Historical Artifacts</h3>
-          <ul>
-            <li className="mb-2 hover:text-white cursor-pointer">Home</li>
-            <li className="mb-2 hover:text-white cursor-pointer">All Artifacts</li>
-            <li className="mb-2 hover:text-white cursor-pointer">Add Artifact</li>
-            <li className="mb-2 hover:text-white cursor-pointer">Artifact Details</li>
-          </ul>
-        </div>
+       {/* Column 1 */}
+<div>
+  <div className="flex items-center mb-4">
+    <Link
+            to="/"
+            className="btn btn-ghost text-sm sm:text-base md:text-xl flex items-center gap-2">
+    <img
+              src="https://i.ibb.co.com/k6zpczSK/Custom-Made-Genuine-Vinyl-Stickers-Decals-3-and-5-Tatto-Design-Sticker-Waterproof-Vinyl-Decals-for-M.png"
+              alt="logo"
+              className="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10"/>
+     <span className="hidden sm:inline">Historical_Artifacts</span>
+          </Link>
+  </div>
+
+  <ul>
+    <li className="mb-2 hover:text-white cursor-pointer">Home</li>
+    <li className="mb-2 hover:text-white cursor-pointer">All Artifacts</li>
+    <li className="mb-2 hover:text-white cursor-pointer">Add Artifact</li>
+    <li className="mb-2 hover:text-white cursor-pointer">Artifact Details</li>
+  </ul>
+</div>
+
 
         {/* Column 2 */}
         <div>
