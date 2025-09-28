@@ -1,2 +1,7 @@
 @import "tailwindcss";
+
 @plugin "daisyui";
+.active {
+  @apply text-amber-600 underline px-3 py-2 rounded;
+}
+
