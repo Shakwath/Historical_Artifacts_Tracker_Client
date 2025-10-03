@@ -5,6 +5,7 @@ import Login from "../Authentication/Login";
 import AllArtifacts from "../Pages/AddArtifact"
 import AddArtifact from "../Pages/AddArtifact";
 import MyArtifacts from "../Pages/MyArtifacts";
+import Register from "../Authentication/Register";
 
 export const router = createBrowserRouter ([
   {
@@ -30,6 +31,10 @@ export const router = createBrowserRouter ([
       {
         path: "/login",
         element:<Login></Login>
+      },
+       {
+        path: "/Register",
+        element:<Register></Register>
       },
       //  {
       //   path: "/*",
