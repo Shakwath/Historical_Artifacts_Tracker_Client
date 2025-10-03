@@ -6,6 +6,7 @@ import AllArtifacts from "../Pages/AddArtifact"
 import AddArtifact from "../Pages/AddArtifact";
 import MyArtifacts from "../Pages/MyArtifacts";
 import Register from "../Authentication/Register";
+import MyProfile from "../Pages/MyProfile";
 
 export const router = createBrowserRouter ([
   {
@@ -34,7 +35,11 @@ export const router = createBrowserRouter ([
       },
        {
         path: "/Register",
-        element:<Register></Register>
+        element:<Register></Register>,
+      },
+       {
+        path: "/updateprofile",
+        element: <MyProfile></MyProfile>,
       },
       //  {
       //   path: "/*",
