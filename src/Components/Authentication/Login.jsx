@@ -11,11 +11,13 @@ import {
 } from "firebase/auth";
 import auth from "../../Firebase.init";
 import toast from "react-hot-toast";
+import { FaEnvelope, FaLock, FaEye, FaEyeSlash } from "react-icons/fa";
 
 const Login = () => {
   const [error, setError] = useState("");
   const { signIn, loading } = useContext(AuthContext);
-  const [ setUser] = useState(null);
+  const [user, setUser] = useState(null);
+  const [showPassword, setShowPassword] = useState(false);
   const emailRef = useRef();
   const location = useLocation();
   const navigate = useNavigate();
@@ -82,96 +84,138 @@ const Login = () => {
   };
 
   return (
-    <div className="flex flex-col md:flex-row items-center md:items-start p-6 gap-6 mt-14">
-      {/* Left: Image */}
-      <div className="w-full md:w-1/2 flex justify-center items-center">
-        <img
-          src={login}
-          alt="Login Illustration"
-          className="w-full h-auto object-cover rounded-lg shadow-lg"
-        />
+    <div className="max-w-6xl mx-auto px-4 py-8 md:py-16 flex flex-col md:flex-row items-center justify-center gap-8 md:gap-12 min-h-[calc(100vh-250px)]">
+      {/* Left: Image / Illustration */}
+      <div className="w-full md:w-1/2 flex justify-center items-center group max-w-md md:max-w-none">
+        <div className="relative overflow-hidden rounded-3xl bg-slate-100 dark:bg-slate-900 border border-slate-200/50 dark:border-slate-800/50 shadow-xl transition-all duration-500 group-hover:-translate-y-1 group-hover:shadow-2xl">
+          <img
+            src={login}
+            alt="Login Illustration"
+            className="w-full h-auto object-cover opacity-90 dark:opacity-85 mix-blend-multiply dark:mix-blend-normal"
+          />
+        </div>
       </div>
 
-      {/* Right: Form */}
-      <div className="w-full md:w-1/2 flex flex-col items-center px-4">
-        <h2 className="font-semibold text-2xl text-center mb-4">
-          Login to your account
-        </h2>
+      {/* Right: Form Container */}
+      <div className="w-full md:w-1/2 flex flex-col items-center max-w-md">
+        <div className="w-full bg-white dark:bg-slate-900 border border-slate-200/60 dark:border-slate-800/80 shadow-xl rounded-3xl p-6 sm:p-8 flex flex-col">
+          <div className="mb-6 text-center">
+            <h2 className="font-extrabold text-2xl sm:text-3xl text-slate-900 dark:text-white tracking-tight">
+              Welcome Back
+            </h2>
+            <p className="text-sm text-slate-500 dark:text-slate-400 mt-2">
+              Sign in to your <span className="text-amber-500 font-semibold">Chronicle</span> account
+            </p>
+          </div>
 
-        <form onSubmit={handleLogin} className="w-full max-w-md">
-          <fieldset className="space-y-4">
-            <div>
-              <label className="mb-2 text-lg font-semibold block">Email</label>
-              <input
-                name="email"
-                type="email"
-                ref={emailRef}
-                className="input input-bordered w-full"
-                placeholder="Email"
-                required
-              />
+          <form onSubmit={handleLogin} className="space-y-4">
+            {/* Email Address */}
+            <div className="space-y-1.5">
+              <label className="text-xs sm:text-sm font-semibold text-slate-700 dark:text-slate-300 block">
+                Email Address
+              </label>
+              <div className="relative">
+                <span className="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none text-slate-400 dark:text-slate-500">
+                  <FaEnvelope />
+                </span>
+                <input
+                  name="email"
+                  type="email"
+                  ref={emailRef}
+                  className="w-full pl-10 pr-4 py-2.5 sm:py-3 text-sm rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 transition-all duration-300"
+                  placeholder="name@example.com"
+                  required
+                />
+              </div>
             </div>
 
-            <div>
-              <label className="mb-2 text-lg font-semibold block">Password</label>
-              <input
-                name="password"
-                type="password"
-                className="input input-bordered w-full"
-                placeholder="Password"
-                required
-              />
+            {/* Password */}
+            <div className="space-y-1.5">
+              <div className="flex justify-between items-center">
+                <label className="text-xs sm:text-sm font-semibold text-slate-700 dark:text-slate-300 block">
+                  Password
+                </label>
+                <button
+                  type="button"
+                  onClick={goToForget}
+                  className="text-xs text-amber-500 dark:text-amber-400 hover:text-amber-600 dark:hover:text-amber-300 hover:underline font-medium"
+                >
+                  Forgot password?
+                </button>
+              </div>
+              <div className="relative">
+                <span className="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none text-slate-400 dark:text-slate-500">
+                  <FaLock />
+                </span>
+                <input
+                  name="password"
+                  type={showPassword ? "text" : "password"}
+                  className="w-full pl-10 pr-11 py-2.5 sm:py-3 text-sm rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 transition-all duration-300"
+                  placeholder="••••••••"
+                  required
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute inset-y-0 right-0 flex items-center pr-3.5 text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:hover:text-slate-300 transition-colors"
+                >
+                  {showPassword ? <FaEyeSlash /> : <FaEye />}
+                </button>
+              </div>
             </div>
 
-            <div className="text-right">
-              <button
-                type="button"
-                onClick={goToForget}
-                className="text-cyan-700 link link-hover"
-              >
-                Forgot password?
-              </button>
-            </div>
-
-            {error && <p className="text-red-400 text-sm">{error}</p>}
+            {error && (
+              <div className="p-3 rounded-xl bg-red-50 dark:bg-red-950/20 border border-red-200 dark:border-red-900/30 text-xs sm:text-sm text-red-600 dark:text-red-400">
+                {error}
+              </div>
+            )}
 
             <button
               type="submit"
-              className="btn btn-neutral w-full"
+              className="w-full py-2.5 sm:py-3 rounded-xl bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-white font-semibold text-sm transition-all duration-300 hover:scale-[1.01] active:scale-98 shadow-md shadow-amber-500/10 cursor-pointer disabled:opacity-50"
               disabled={loading}
             >
-              {loading ? "Logging in..." : "Login"}
+              {loading ? "Signing In..." : "Sign In"}
             </button>
 
-            <p className="text-center font-semibold pt-4">
+            <p className="text-center text-sm text-slate-600 dark:text-slate-400 pt-2">
               Don’t have an account?{" "}
-              <Link className="text-secondary" to="/Register">
-                Register
+              <Link className="text-amber-500 dark:text-amber-400 hover:underline font-semibold" to="/Register">
+                Create Account
               </Link>
             </p>
-          </fieldset>
+          </form>
 
-          {/* Social Login */}
-          <div className="mt-6">
-            <h2 className="font-semibold text-center">Login with</h2>
-            <div className="flex justify-center gap-4 mt-4">
-              <button
-                type="button"
-                onClick={handleGoogleSignIn}
-                className="w-12 h-12 flex items-center justify-center rounded-full shadow border"
-              >
-                <img src={google} alt="Google" className="h-6 w-6" />
-              </button>
-              <button
-                type="button"
-                onClick={handleGithubSignIn}
-                className="w-12 h-12 flex items-center justify-center rounded-full shadow border"
-              >
-                <img src={github} alt="GitHub" className="h-6 w-6" />
-              </button>
+          {/* Social Separator */}
+          <div className="relative my-6">
+            <div className="absolute inset-0 flex items-center">
+              <div className="w-full border-t border-slate-200 dark:border-slate-800"></div>
+            </div>
+            <div className="relative flex justify-center text-xs uppercase">
+              <span className="bg-white dark:bg-slate-900 px-3 text-slate-500 dark:text-slate-400">Or continue with</span>
             </div>
           </div>
-        </form>
+
+          {/* Social Buttons */}
+          <div className="flex gap-3">
+            <button
+              type="button"
+              onClick={handleGoogleSignIn}
+              className="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-950 hover:bg-slate-100 dark:hover:bg-slate-900 border border-slate-200 dark:border-slate-800/80 hover:border-amber-500 dark:hover:border-amber-500 hover:scale-[1.02] active:scale-98 shadow-sm hover:shadow-md transition-all duration-300 cursor-pointer"
+            >
+              <img src={google} alt="Google" className="h-5 w-5" />
+              <span className="text-xs sm:text-sm font-semibold text-slate-700 dark:text-slate-200">Google</span>
+            </button>
+            <button
+              type="button"
+              onClick={handleGithubSignIn}
+              className="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-950 hover:bg-slate-100 dark:hover:bg-slate-900 border border-slate-200 dark:border-slate-800/80 hover:border-amber-500 dark:hover:border-amber-500 hover:scale-[1.02] active:scale-98 shadow-sm hover:shadow-md transition-all duration-300 cursor-pointer"
+            >
+              <img src={github} alt="GitHub" className="h-5 w-5" />
+              <span className="text-xs sm:text-sm font-semibold text-slate-700 dark:text-slate-200">GitHub</span>
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   );
