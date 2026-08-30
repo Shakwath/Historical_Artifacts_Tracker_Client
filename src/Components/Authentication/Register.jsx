@@ -1,9 +1,94 @@
 import React, { useState, useContext } from "react";
-import Registeri from '../../assets/signup.jpg';
 import { Link, useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
 import { AuthContext } from "../Provider/AuthProvider";
 import { FaUser, FaLink, FaEnvelope, FaLock, FaEye, FaEyeSlash } from "react-icons/fa";
 import toast from "react-hot-toast";
+
+const RegisterAnimation = () => {
+  return (
+    <div className="w-full h-96 relative flex flex-col justify-center items-center overflow-hidden rounded-3xl bg-gradient-to-br from-slate-900 via-slate-950 to-amber-950 border border-slate-800/60 shadow-2xl p-8">
+      {/* Background glowing particles/circles */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-72 h-72 rounded-full bg-amber-500/5 blur-3xl animate-pulse"></div>
+      
+      {/* Rotating concentric rings */}
+      <motion.div
+        animate={{ rotate: 360 }}
+        transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+        className="absolute w-64 h-64 border border-dashed border-amber-500/20 rounded-full flex items-center justify-center"
+      />
+
+      {/* Orbiting particles */}
+      <motion.div
+        animate={{ rotate: -360 }}
+        transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+        className="absolute w-44 h-44 rounded-full border border-slate-800/40 flex items-center justify-between"
+      >
+        <div className="w-3 h-3 bg-amber-500 rounded-full shadow-[0_0_8px_#f59e0b]"></div>
+        <div className="w-3 h-3 bg-orange-500 rounded-full shadow-[0_0_8px_#ea580c]"></div>
+      </motion.div>
+
+      {/* Main Registration Animation */}
+      <div className="relative z-10 flex flex-col items-center gap-6">
+        <motion.div 
+          className="relative w-32 h-32 flex items-center justify-center cursor-pointer"
+          whileHover="hover"
+        >
+          {/* Main User Card */}
+          <motion.div 
+            className="w-24 h-24 bg-gradient-to-br from-amber-500/10 to-orange-600/10 rounded-3xl border border-amber-500/30 flex items-center justify-center backdrop-blur-sm relative"
+            variants={{
+              hover: { scale: 1.05 }
+            }}
+          >
+            {/* User Icon silhouette */}
+            <svg
+              width="48"
+              height="48"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="url(#userGradient)"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="text-amber-500"
+            >
+              <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+              <circle cx="12" cy="7" r="4" />
+            </svg>
+            <defs>
+              <linearGradient id="userGradient" x1="4" y1="7" x2="19" y2="21" gradientUnits="userSpaceOnUse">
+                <stop stopColor="#f59e0b" />
+                <stop offset="1" stopColor="#ea580c" />
+              </linearGradient>
+            </defs>
+
+            {/* Orbiting "+" sign / new account creation badge */}
+            <motion.div
+              className="absolute -top-1.5 -right-1.5 w-6 h-6 rounded-full bg-gradient-to-r from-amber-500 to-orange-500 flex items-center justify-center shadow-lg border border-amber-400/40 text-white font-bold text-xs"
+              variants={{
+                hover: { rotate: 90, scale: 1.1 }
+              }}
+            >
+              +
+            </motion.div>
+          </motion.div>
+        </motion.div>
+
+        {/* Text */}
+        <div className="text-center space-y-1">
+          <h3 className="text-amber-500 font-bold uppercase tracking-widest text-xs font-mono">
+            New Registry
+          </h3>
+          <p className="text-slate-400 text-xs font-mono animate-pulse">
+            Creating Keeper Profile...
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 
 const Register = () => {
   const { createUser, setUser, updateUser } = useContext(AuthContext);
@@ -77,15 +162,9 @@ const Register = () => {
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-8 md:py-16 flex flex-col md:flex-row items-center justify-center gap-8 md:gap-12 min-h-[calc(100vh-250px)]">
-      {/* Left Side (Image) */}
+      {/* Left Side: Interactive Registration Animation */}
       <div className="w-full md:w-1/2 flex justify-center items-center group max-w-md md:max-w-none">
-        <div className="relative overflow-hidden rounded-3xl bg-slate-100 dark:bg-slate-900 border border-slate-200/50 dark:border-slate-800/50 shadow-xl transition-all duration-500 group-hover:-translate-y-1 group-hover:shadow-2xl">
-          <img
-            src={Registeri}
-            alt="Register Illustration"
-            className="w-full h-auto object-cover opacity-90 dark:opacity-85 mix-blend-multiply dark:mix-blend-normal"
-          />
-        </div>
+        <RegisterAnimation />
       </div>
 
       {/* Right Form */}

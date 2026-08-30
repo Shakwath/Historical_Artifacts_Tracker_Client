@@ -1,8 +1,8 @@
 import React, { useState, useContext, useRef } from "react";
 import google from "../../assets/Google.png";
 import github from "../../assets/github.png";
-import login from "../../assets/login-illustration.jpg";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
 import { AuthContext } from "../../Components/Provider/AuthProvider";
 import {
   GoogleAuthProvider,
@@ -12,6 +12,87 @@ import {
 import auth from "../../Firebase.init";
 import toast from "react-hot-toast";
 import { FaEnvelope, FaLock, FaEye, FaEyeSlash } from "react-icons/fa";
+
+const LoginAnimation = () => {
+  return (
+    <div className="w-full h-96 relative flex flex-col justify-center items-center overflow-hidden rounded-3xl bg-gradient-to-br from-slate-900 via-slate-950 to-amber-950 border border-slate-800/60 shadow-2xl p-8">
+      {/* Background glowing particles/circles */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-72 h-72 rounded-full bg-amber-500/10 blur-3xl animate-pulse"></div>
+      
+      {/* Rotating concentric rings */}
+      <motion.div
+        animate={{ rotate: 360 }}
+        transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+        className="absolute w-64 h-64 border border-dashed border-amber-500/20 rounded-full flex items-center justify-center"
+      />
+      <motion.div
+        animate={{ rotate: -360 }}
+        transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
+        className="absolute w-52 h-52 border border-dashed border-orange-500/30 rounded-full flex items-center justify-center"
+      />
+
+      {/* Main Lock Animation */}
+      <div className="relative z-10 flex flex-col items-center gap-6">
+        <motion.div 
+          className="relative w-32 h-32 flex items-center justify-center cursor-pointer"
+          whileHover="hover"
+        >
+          {/* Padlock Body */}
+          <motion.div 
+            className="absolute bottom-2 w-20 h-16 bg-gradient-to-br from-amber-500 to-orange-600 rounded-2xl shadow-lg border border-amber-400/30 flex items-center justify-center"
+            variants={{
+              hover: { scale: 1.05 }
+            }}
+          >
+            {/* Keyhole */}
+            <div className="w-4 h-6 bg-slate-950 rounded-full relative flex flex-col items-center justify-start pt-1.5 shadow-inner">
+              <div className="w-1.5 h-1.5 bg-amber-400/40 rounded-full"></div>
+              <div className="w-1 h-3 bg-amber-400/40 rounded-sm mt-0.5"></div>
+            </div>
+          </motion.div>
+          
+          {/* Padlock Shackle */}
+          <motion.svg
+            width="56"
+            height="64"
+            viewBox="0 0 56 64"
+            fill="none"
+            className="absolute -top-1 left-[38px] z-[-1]"
+            variants={{
+              initial: { y: 0 },
+              hover: { y: -10, transition: { duration: 0.3 } }
+            }}
+            initial="initial"
+          >
+            <path
+              d="M8 32V20C8 10.0589 16.9543 1.1 28 1.1C39.0457 1.1 48 10.0589 48 20V32"
+              stroke="url(#shackleGradient)"
+              strokeWidth="7"
+              strokeLinecap="round"
+            />
+            <defs>
+              <linearGradient id="shackleGradient" x1="8" y1="1.1" x2="48" y2="32" gradientUnits="userSpaceOnUse">
+                <stop stopColor="#f59e0b" />
+                <stop offset="1" stopColor="#ea580c" />
+              </linearGradient>
+            </defs>
+          </motion.svg>
+        </motion.div>
+
+        {/* Text */}
+        <div className="text-center space-y-1">
+          <h3 className="text-amber-500 font-bold uppercase tracking-widest text-xs font-mono">
+            Secure Portal
+          </h3>
+          <p className="text-slate-400 text-xs font-mono animate-pulse">
+            Unlocking Registry Access...
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 
 const Login = () => {
   const [error, setError] = useState("");
@@ -85,15 +166,9 @@ const Login = () => {
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-8 md:py-16 flex flex-col md:flex-row items-center justify-center gap-8 md:gap-12 min-h-[calc(100vh-250px)]">
-      {/* Left: Image / Illustration */}
+      {/* Left: Interactive Authentication Animation */}
       <div className="w-full md:w-1/2 flex justify-center items-center group max-w-md md:max-w-none">
-        <div className="relative overflow-hidden rounded-3xl bg-slate-100 dark:bg-slate-900 border border-slate-200/50 dark:border-slate-800/50 shadow-xl transition-all duration-500 group-hover:-translate-y-1 group-hover:shadow-2xl">
-          <img
-            src={login}
-            alt="Login Illustration"
-            className="w-full h-auto object-cover opacity-90 dark:opacity-85 mix-blend-multiply dark:mix-blend-normal"
-          />
-        </div>
+        <LoginAnimation />
       </div>
 
       {/* Right: Form Container */}
