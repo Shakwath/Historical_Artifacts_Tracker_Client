@@ -7,6 +7,7 @@ import AddArtifact from "../Pages/AddArtifact";
 import MyArtifacts from "../Pages/MyArtifacts";
 import LikedArtifacts from "../Pages/LikedArtifacts";
 import ArtifactDetails from "../Pages/ArtifactDetails";
+import UpdateArtifact from "../Pages/UpdateArtifact";
 import Register from "../Authentication/Register";
 import MyProfile from "../Pages/MyProfile";
 import ErrorPage from "../Pages/ErrorPage";
@@ -54,6 +55,14 @@ export const router = createBrowserRouter ([
         element: (
           <PrivateRoute>
             <ArtifactDetails></ArtifactDetails>
+          </PrivateRoute>
+        )
+      },
+      {
+        path: "/update-artifact/:id",
+        element: (
+          <PrivateRoute>
+            <UpdateArtifact></UpdateArtifact>
           </PrivateRoute>
         )
       },

@@ -28,6 +28,8 @@ const Mainlayout = () => {
       title = "Register | Chronicle";
     } else if (path === "/updateprofile") {
       title = "My Profile | Chronicle";
+    } else if (path.startsWith("/update-artifact/")) {
+      title = "Update Artifact | Chronicle";
     } else {
       title = "404 Not Found | Chronicle";
     }
