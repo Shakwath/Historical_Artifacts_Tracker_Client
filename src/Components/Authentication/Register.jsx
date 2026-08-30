@@ -6,69 +6,68 @@ import { FaUser, FaLink, FaEnvelope, FaLock, FaEye, FaEyeSlash } from "react-ico
 import toast from "react-hot-toast";
 
 const RegisterAnimation = () => {
+  const [isHovered, setIsHovered] = useState(false);
+
   return (
-    <div className="w-full h-96 relative flex flex-col justify-center items-center overflow-hidden rounded-3xl bg-slate-950 border border-slate-800/80 shadow-2xl p-8 font-mono">
+    <div 
+      className="w-full h-96 relative flex flex-col justify-center items-center overflow-hidden rounded-3xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800/80 shadow-2xl p-8 font-mono transition-all duration-300"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
       {/* Background Golden Light/Portal (Revealed on hover) */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 rounded-full bg-gradient-to-br from-amber-500 to-orange-600 blur-3xl opacity-10 pointer-events-none"></div>
       
       {/* Glowing center portal light */}
       <motion.div 
-        className="absolute w-40 h-40 rounded-full bg-amber-500/20 shadow-[0_0_50px_#f59e0b,0_0_80px_#ea580c] z-0"
+        className="absolute w-44 h-44 rounded-full bg-amber-500/20 shadow-[0_0_50px_rgba(245,158,11,0.3),0_0_80px_rgba(234,88,12,0.2)] z-0"
         initial={{ scale: 0.8, opacity: 0 }}
-        variants={{
-          hover: { scale: 1.1, opacity: 1, transition: { duration: 0.5 } }
-        }}
+        animate={{ scale: isHovered ? 1.15 : 0.8, opacity: isHovered ? 1 : 0 }}
+        transition={{ duration: 0.5 }}
       />
+
+      {/* Tech/Archive Data lines in background */}
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(245,158,11,0.03)_0%,transparent_80%)] z-0 pointer-events-none"></div>
 
       <div className="absolute inset-x-8 top-10 bottom-24 flex items-center justify-center z-10">
         {/* Stone Gate Frame */}
-        <motion.div 
-          className="relative w-72 h-60 border-4 border-slate-850 bg-slate-900/10 rounded-2xl flex overflow-hidden shadow-inner group transition-colors duration-500 cursor-pointer"
-          whileHover="hover"
-        >
+        <div className="relative w-72 h-60 border-4 border-slate-300 dark:border-slate-850 bg-slate-100/50 dark:bg-slate-900/10 rounded-2xl flex overflow-hidden shadow-inner group transition-colors duration-500 cursor-pointer">
+          
           {/* Left Door Panel */}
           <motion.div
-            variants={{
-              initial: { x: 0 },
-              hover: { x: "-95%", transition: { duration: 0.6, ease: "easeInOut" } }
-            }}
-            initial="initial"
-            className="w-1/2 h-full bg-slate-800 border-r border-slate-950 shadow-lg flex flex-col items-end justify-center pr-2 relative z-10"
+            animate={{ x: isHovered ? "-95%" : "0%" }}
+            transition={{ duration: 0.6, ease: "easeInOut" }}
+            className="w-1/2 h-full bg-slate-200 dark:bg-slate-800 border-r border-slate-300 dark:border-slate-950 shadow-lg flex flex-col items-end justify-center pr-2 relative z-10"
           >
             {/* Door handle left half */}
-            <div className="w-8 h-16 border-2 border-amber-500/40 rounded-l-full bg-slate-900 flex items-center justify-end pr-1.5 shadow-[inset_-2px_0_5px_rgba(0,0,0,0.5)]">
+            <div className="w-8 h-16 border-2 border-amber-500/40 rounded-l-full bg-slate-100 dark:bg-slate-900 flex items-center justify-end pr-1.5 shadow-[inset_-2px_0_5px_rgba(0,0,0,0.2)] dark:shadow-[inset_-2px_0_5px_rgba(0,0,0,0.5)]">
               <div className="w-2 h-2 bg-amber-500 rounded-full animate-pulse"></div>
             </div>
             {/* Ancient patterns on stone */}
-            <div className="absolute top-4 left-4 w-4 h-4 border-t-2 border-l-2 border-slate-700"></div>
-            <div className="absolute bottom-4 left-4 w-4 h-4 border-b-2 border-l-2 border-slate-700"></div>
+            <div className="absolute top-4 left-4 w-4 h-4 border-t-2 border-l-2 border-slate-300 dark:border-slate-700"></div>
+            <div className="absolute bottom-4 left-4 w-4 h-4 border-b-2 border-l-2 border-slate-300 dark:border-slate-700"></div>
           </motion.div>
 
           {/* Right Door Panel */}
           <motion.div
-            variants={{
-              initial: { x: 0 },
-              hover: { x: "95%", transition: { duration: 0.6, ease: "easeInOut" } }
-            }}
-            initial="initial"
-            className="w-1/2 h-full bg-slate-800 border-l border-slate-950 shadow-lg flex flex-col items-start justify-center pl-2 relative z-10"
+            animate={{ x: isHovered ? "95%" : "0%" }}
+            transition={{ duration: 0.6, ease: "easeInOut" }}
+            className="w-1/2 h-full bg-slate-200 dark:bg-slate-800 border-l border-slate-300 dark:border-slate-950 shadow-lg flex flex-col items-start justify-center pl-2 relative z-10"
           >
             {/* Door handle right half */}
-            <div className="w-8 h-16 border-2 border-amber-500/40 rounded-r-full bg-slate-900 flex items-center justify-start pl-1.5 shadow-[inset_2px_0_5px_rgba(0,0,0,0.5)]">
+            <div className="w-8 h-16 border-2 border-amber-500/40 rounded-r-full bg-slate-100 dark:bg-slate-900 flex items-center justify-start pl-1.5 shadow-[inset_2px_0_5px_rgba(0,0,0,0.2)] dark:shadow-[inset_2px_0_5px_rgba(0,0,0,0.5)]">
               <div className="w-2 h-2 bg-amber-500 rounded-full animate-pulse"></div>
             </div>
             {/* Ancient patterns on stone */}
-            <div className="absolute top-4 right-4 w-4 h-4 border-t-2 border-r-2 border-slate-700"></div>
-            <div className="absolute bottom-4 right-4 w-4 h-4 border-b-2 border-r-2 border-slate-700"></div>
+            <div className="absolute top-4 right-4 w-4 h-4 border-t-2 border-r-2 border-slate-300 dark:border-slate-700"></div>
+            <div className="absolute bottom-4 right-4 w-4 h-4 border-b-2 border-r-2 border-slate-300 dark:border-slate-700"></div>
           </motion.div>
 
           {/* Golden Keeper Symbol inside (visible when doors open) */}
           <motion.div 
             className="absolute inset-0 flex items-center justify-center z-0 pointer-events-none"
             initial={{ scale: 0.5, opacity: 0 }}
-            variants={{
-              hover: { scale: 1, opacity: 1, transition: { delay: 0.2, duration: 0.4 } }
-            }}
+            animate={{ scale: isHovered ? 1 : 0.5, opacity: isHovered ? 1 : 0 }}
+            transition={{ delay: 0.2, duration: 0.4 }}
           >
             <svg
               width="64"
@@ -79,21 +78,24 @@ const RegisterAnimation = () => {
               strokeWidth="1.5"
               strokeLinecap="round"
               strokeLinejoin="round"
-              className="filter drop-shadow-[0_0_8px_#f59e0b]"
+              className="filter drop-shadow-[0_0_8px_rgba(245,158,11,0.6)]"
             >
               <path d="M15 6v12a3 3 0 1 0 3-3H6a3 3 0 1 0 3 3V6a3 3 0 1 0-3 3h12a3 3 0 1 0-3-3z" />
             </svg>
           </motion.div>
-        </motion.div>
+        </div>
       </div>
 
-      {/* Text */}
-      <div className="absolute bottom-6 text-center space-y-1">
-        <h3 className="text-amber-500 font-bold uppercase tracking-widest text-xs">
-          ARCHIVE CHAMBER
-        </h3>
-        <p className="text-slate-400 text-[10px] animate-pulse">
-          HOVER GATE TO UNLOCK DISCOVERIES...
+      {/* Text and Interactive Hint */}
+      <div className="absolute bottom-6 text-center space-y-2">
+        <div className="flex items-center justify-center gap-2">
+          <span className={`w-2 h-2 rounded-full ${isHovered ? 'bg-green-500 animate-ping' : 'bg-amber-500 animate-pulse'}`}></span>
+          <h3 className="text-slate-800 dark:text-slate-100 font-bold uppercase tracking-widest text-xs">
+            {isHovered ? "ACCESS GRANTED" : "ARCHIVE CHAMBER"}
+          </h3>
+        </div>
+        <p className="text-slate-500 dark:text-slate-400 text-[10px]">
+          {isHovered ? "WELCOME TO CHRONICLE VAULT" : "HOVER OR TAP TO OPEN CHAMBER GATE"}
         </p>
       </div>
     </div>

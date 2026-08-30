@@ -14,79 +14,116 @@ import toast from "react-hot-toast";
 import { FaEnvelope, FaLock, FaEye, FaEyeSlash } from "react-icons/fa";
 
 const LoginAnimation = () => {
+  const [isHovered, setIsHovered] = useState(false);
+
   return (
-    <div className="w-full h-96 relative flex flex-col justify-center items-center overflow-hidden rounded-3xl bg-slate-950 border border-slate-800/80 shadow-2xl p-8 font-mono">
+    <div 
+      className="w-full h-96 relative flex flex-col justify-center items-center overflow-hidden rounded-3xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800/80 shadow-2xl p-8 font-mono transition-all duration-300"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      {/* HUD Crosshairs in corners */}
+      <div className="absolute top-6 left-6 w-4 h-4 border-t-2 border-l-2 border-slate-300 dark:border-slate-700"></div>
+      <div className="absolute top-6 right-6 w-4 h-4 border-t-2 border-r-2 border-slate-300 dark:border-slate-700"></div>
+      <div className="absolute bottom-6 left-6 w-4 h-4 border-b-2 border-l-2 border-slate-300 dark:border-slate-700"></div>
+      <div className="absolute bottom-6 right-6 w-4 h-4 border-b-2 border-r-2 border-slate-300 dark:border-slate-700"></div>
+
       {/* Monitor Grid Lines Backdrop */}
-      <div className="absolute inset-0 bg-[linear-gradient(rgba(245,158,11,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(245,158,11,0.05)_1px,transparent_1px)] bg-[size:24px_24px] opacity-20 z-0"></div>
+      <div className="absolute inset-0 bg-[linear-gradient(rgba(245,158,11,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(245,158,11,0.03)_1px,transparent_1px)] dark:bg-[linear-gradient(rgba(245,158,11,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(245,158,11,0.05)_1px,transparent_1px)] bg-[size:24px_24px] opacity-30 z-0"></div>
       
       {/* Blinking REC indicator */}
-      <div className="absolute top-4 right-4 flex items-center gap-1.5 bg-red-950/40 border border-red-500/30 px-2.5 py-1 rounded-md text-[10px] text-red-500 font-bold tracking-wider z-20">
-        <span className="w-2.5 h-2.5 bg-red-600 rounded-full animate-ping"></span>
-        <span className="w-2.5 h-2.5 bg-red-600 rounded-full absolute"></span>
-        REC
+      <div className="absolute top-4 right-8 flex items-center gap-1.5 bg-red-500/10 dark:bg-red-950/40 border border-red-500/30 px-2.5 py-1 rounded-md text-[10px] text-red-600 dark:text-red-500 font-bold tracking-wider z-20">
+        <span className="w-2 h-2 bg-red-600 rounded-full animate-ping"></span>
+        <span className="w-2 h-2 bg-red-600 rounded-full absolute"></span>
+        LIVE FEED
+      </div>
+
+      {/* Tech info overlay */}
+      <div className="absolute top-4 left-8 text-[9px] text-slate-400 dark:text-slate-500 flex items-center gap-3 select-none">
+        <div>FPS: 60</div>
+        <div>SYS: ONLINE</div>
       </div>
       
       {/* Camera feed coordinates overlay */}
-      <div className="absolute bottom-4 left-4 text-[10px] text-slate-500 flex flex-col gap-0.5 select-none text-left z-20">
-        <div>SYS.LOC: CHRONICLE_SEC_01</div>
-        <div>CAM.STATUS: ACTIVE_SCAN</div>
+      <div className="absolute bottom-4 left-8 text-[9px] text-slate-400 dark:text-slate-500 flex flex-col gap-0.5 select-none text-left z-20">
+        <div>LOC: CHRONICLE_SEC_01</div>
+        <div>METHOD: FACE_SCAN_v2.4</div>
       </div>
 
       {/* Sweeping Green Laser Scanner Line */}
       <motion.div
         animate={{ y: [-130, 130, -130] }}
-        transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+        transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut" }}
         className="absolute w-full h-0.5 bg-green-500 z-10 shadow-[0_0_12px_#22c55e,0_0_20px_#22c55e]"
       />
 
       {/* Green glow sweep overlay */}
       <motion.div
         animate={{ y: [-130, 130, -130] }}
-        transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute w-full h-16 bg-gradient-to-b from-green-500/0 via-green-500/10 to-green-500/0 z-0 pointer-events-none"
+        transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute w-full h-24 bg-gradient-to-b from-green-500/0 via-green-500/5 to-green-500/0 z-0 pointer-events-none"
       />
+
+      {/* Holographic Face grid (shows on hover) */}
+      <motion.div 
+        className="absolute inset-12 border border-green-500/10 rounded-2xl z-0 pointer-events-none flex items-center justify-center"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: isHovered ? 1 : 0 }}
+        transition={{ duration: 0.3 }}
+      >
+        <div className="w-full h-full bg-[radial-gradient(ellipse_at_center,rgba(34,197,94,0.05)_0%,transparent_70%)] flex items-center justify-center">
+          {/* Target Box */}
+          <div className="w-24 h-24 border border-dashed border-green-500/30 rounded-full animate-spin"></div>
+        </div>
+      </motion.div>
 
       <div className="relative z-10 flex flex-col items-center gap-6">
         {/* Security Scanner Lens Frame */}
         <motion.div 
-          className="relative w-36 h-36 border-2 border-dashed border-slate-800 rounded-full flex items-center justify-center bg-slate-900/50 backdrop-blur-sm"
-          whileHover="hover"
+          className="relative w-36 h-36 border border-slate-300 dark:border-slate-800 rounded-full flex items-center justify-center bg-slate-100/50 dark:bg-slate-900/50 backdrop-blur-sm shadow-inner"
+          animate={{ scale: isHovered ? 1.08 : 1 }}
+          transition={{ duration: 0.3 }}
         >
-          {/* Outer rotating scanner ring */}
+          {/* Outer rotating tech ring */}
           <motion.div
             animate={{ rotate: 360 }}
+            transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
+            className="absolute inset-1 border border-dashed border-amber-500/30 rounded-full"
+          />
+          <motion.div
+            animate={{ rotate: -360 }}
             transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
-            className="absolute inset-2 border border-dashed border-amber-500/20 rounded-full"
+            className="absolute inset-3 border border-dotted border-slate-400 dark:border-slate-600 rounded-full"
           />
 
           {/* Camera Lens Housing */}
-          <motion.div 
-            className="w-20 h-20 bg-slate-900 rounded-full border border-slate-700 flex items-center justify-center shadow-2xl relative"
-            variants={{
-              hover: { scale: 1.05 }
-            }}
-          >
+          <div className="w-20 h-20 bg-slate-200 dark:bg-slate-900 rounded-full border border-slate-300 dark:border-slate-700 flex items-center justify-center shadow-2xl relative">
             {/* Camera Eye */}
             <motion.div 
-              className="w-10 h-10 bg-slate-950 rounded-full border-2 border-red-600/40 flex items-center justify-center relative overflow-hidden"
-              animate={{ scale: [1, 0.95, 1] }}
-              transition={{ duration: 2, repeat: Infinity }}
+              className="w-12 h-12 bg-slate-300 dark:bg-slate-950 rounded-full border border-slate-400 dark:border-slate-800 flex items-center justify-center relative overflow-hidden"
             >
               {/* Red glowing lens indicator */}
-              <div className="w-4 h-4 bg-red-600 rounded-full shadow-[0_0_10px_#dc2626] opacity-80"></div>
+              <motion.div 
+                className="w-4 h-4 bg-red-600 rounded-full shadow-[0_0_10px_#dc2626] opacity-80"
+                animate={{ scale: isHovered ? [1, 1.3, 1] : [1, 1.05, 1] }}
+                transition={{ duration: isHovered ? 0.5 : 2, repeat: Infinity }}
+              />
               {/* Reflection */}
-              <div className="absolute top-1.5 left-1.5 w-1.5 h-1.5 bg-white rounded-full opacity-60"></div>
+              <div className="absolute top-2 left-2 w-2 h-2 bg-white rounded-full opacity-60"></div>
             </motion.div>
-          </motion.div>
+          </div>
         </motion.div>
 
-        {/* Text */}
-        <div className="text-center space-y-1">
-          <h3 className="text-amber-500 font-bold uppercase tracking-widest text-xs">
-            SECURE RECOGNITION
-          </h3>
-          <p className="text-slate-400 text-[10px] animate-pulse">
-            SCANNING FOR CREDENTIALS...
+        {/* Text and Interactive Hint */}
+        <div className="text-center space-y-2">
+          <div className="flex items-center justify-center gap-2">
+            <span className={`w-2 h-2 rounded-full ${isHovered ? 'bg-green-500 animate-ping' : 'bg-amber-500 animate-pulse'}`}></span>
+            <h3 className="text-slate-800 dark:text-slate-100 font-bold uppercase tracking-widest text-xs">
+              {isHovered ? "BIOMETRIC SCANNING" : "IDENTITY VERIFICATION"}
+            </h3>
+          </div>
+          <p className="text-slate-500 dark:text-slate-400 text-[10px]">
+            {isHovered ? "ANALYZING ACCESS CODE..." : "HOVER OR TAP TO ACTIVATE SCANNER"}
           </p>
         </div>
       </div>
