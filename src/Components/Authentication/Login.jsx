@@ -15,77 +15,78 @@ import { FaEnvelope, FaLock, FaEye, FaEyeSlash } from "react-icons/fa";
 
 const LoginAnimation = () => {
   return (
-    <div className="w-full h-96 relative flex flex-col justify-center items-center overflow-hidden rounded-3xl bg-gradient-to-br from-slate-900 via-slate-950 to-amber-950 border border-slate-800/60 shadow-2xl p-8">
-      {/* Background glowing particles/circles */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-72 h-72 rounded-full bg-amber-500/10 blur-3xl animate-pulse"></div>
+    <div className="w-full h-96 relative flex flex-col justify-center items-center overflow-hidden rounded-3xl bg-slate-950 border border-slate-800/80 shadow-2xl p-8 font-mono">
+      {/* Monitor Grid Lines Backdrop */}
+      <div className="absolute inset-0 bg-[linear-gradient(rgba(245,158,11,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(245,158,11,0.05)_1px,transparent_1px)] bg-[size:24px_24px] opacity-20 z-0"></div>
       
-      {/* Rotating concentric rings */}
+      {/* Blinking REC indicator */}
+      <div className="absolute top-4 right-4 flex items-center gap-1.5 bg-red-950/40 border border-red-500/30 px-2.5 py-1 rounded-md text-[10px] text-red-500 font-bold tracking-wider z-20">
+        <span className="w-2.5 h-2.5 bg-red-600 rounded-full animate-ping"></span>
+        <span className="w-2.5 h-2.5 bg-red-600 rounded-full absolute"></span>
+        REC
+      </div>
+      
+      {/* Camera feed coordinates overlay */}
+      <div className="absolute bottom-4 left-4 text-[10px] text-slate-500 flex flex-col gap-0.5 select-none text-left z-20">
+        <div>SYS.LOC: CHRONICLE_SEC_01</div>
+        <div>CAM.STATUS: ACTIVE_SCAN</div>
+      </div>
+
+      {/* Sweeping Green Laser Scanner Line */}
       <motion.div
-        animate={{ rotate: 360 }}
-        transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
-        className="absolute w-64 h-64 border border-dashed border-amber-500/20 rounded-full flex items-center justify-center"
-      />
-      <motion.div
-        animate={{ rotate: -360 }}
-        transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
-        className="absolute w-52 h-52 border border-dashed border-orange-500/30 rounded-full flex items-center justify-center"
+        animate={{ y: [-130, 130, -130] }}
+        transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute w-full h-0.5 bg-green-500 z-10 shadow-[0_0_12px_#22c55e,0_0_20px_#22c55e]"
       />
 
-      {/* Main Lock Animation */}
+      {/* Green glow sweep overlay */}
+      <motion.div
+        animate={{ y: [-130, 130, -130] }}
+        transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute w-full h-16 bg-gradient-to-b from-green-500/0 via-green-500/10 to-green-500/0 z-0 pointer-events-none"
+      />
+
       <div className="relative z-10 flex flex-col items-center gap-6">
+        {/* Security Scanner Lens Frame */}
         <motion.div 
-          className="relative w-32 h-32 flex items-center justify-center cursor-pointer"
+          className="relative w-36 h-36 border-2 border-dashed border-slate-800 rounded-full flex items-center justify-center bg-slate-900/50 backdrop-blur-sm"
           whileHover="hover"
         >
-          {/* Padlock Body */}
+          {/* Outer rotating scanner ring */}
+          <motion.div
+            animate={{ rotate: 360 }}
+            transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+            className="absolute inset-2 border border-dashed border-amber-500/20 rounded-full"
+          />
+
+          {/* Camera Lens Housing */}
           <motion.div 
-            className="absolute bottom-2 w-20 h-16 bg-gradient-to-br from-amber-500 to-orange-600 rounded-2xl shadow-lg border border-amber-400/30 flex items-center justify-center"
+            className="w-20 h-20 bg-slate-900 rounded-full border border-slate-700 flex items-center justify-center shadow-2xl relative"
             variants={{
               hover: { scale: 1.05 }
             }}
           >
-            {/* Keyhole */}
-            <div className="w-4 h-6 bg-slate-950 rounded-full relative flex flex-col items-center justify-start pt-1.5 shadow-inner">
-              <div className="w-1.5 h-1.5 bg-amber-400/40 rounded-full"></div>
-              <div className="w-1 h-3 bg-amber-400/40 rounded-sm mt-0.5"></div>
-            </div>
+            {/* Camera Eye */}
+            <motion.div 
+              className="w-10 h-10 bg-slate-950 rounded-full border-2 border-red-600/40 flex items-center justify-center relative overflow-hidden"
+              animate={{ scale: [1, 0.95, 1] }}
+              transition={{ duration: 2, repeat: Infinity }}
+            >
+              {/* Red glowing lens indicator */}
+              <div className="w-4 h-4 bg-red-600 rounded-full shadow-[0_0_10px_#dc2626] opacity-80"></div>
+              {/* Reflection */}
+              <div className="absolute top-1.5 left-1.5 w-1.5 h-1.5 bg-white rounded-full opacity-60"></div>
+            </motion.div>
           </motion.div>
-          
-          {/* Padlock Shackle */}
-          <motion.svg
-            width="56"
-            height="64"
-            viewBox="0 0 56 64"
-            fill="none"
-            className="absolute -top-1 left-[38px] z-[-1]"
-            variants={{
-              initial: { y: 0 },
-              hover: { y: -10, transition: { duration: 0.3 } }
-            }}
-            initial="initial"
-          >
-            <path
-              d="M8 32V20C8 10.0589 16.9543 1.1 28 1.1C39.0457 1.1 48 10.0589 48 20V32"
-              stroke="url(#shackleGradient)"
-              strokeWidth="7"
-              strokeLinecap="round"
-            />
-            <defs>
-              <linearGradient id="shackleGradient" x1="8" y1="1.1" x2="48" y2="32" gradientUnits="userSpaceOnUse">
-                <stop stopColor="#f59e0b" />
-                <stop offset="1" stopColor="#ea580c" />
-              </linearGradient>
-            </defs>
-          </motion.svg>
         </motion.div>
 
         {/* Text */}
         <div className="text-center space-y-1">
-          <h3 className="text-amber-500 font-bold uppercase tracking-widest text-xs font-mono">
-            Secure Portal
+          <h3 className="text-amber-500 font-bold uppercase tracking-widest text-xs">
+            SECURE RECOGNITION
           </h3>
-          <p className="text-slate-400 text-xs font-mono animate-pulse">
-            Unlocking Registry Access...
+          <p className="text-slate-400 text-[10px] animate-pulse">
+            SCANNING FOR CREDENTIALS...
           </p>
         </div>
       </div>
