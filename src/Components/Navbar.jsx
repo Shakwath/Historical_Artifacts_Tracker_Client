@@ -3,7 +3,7 @@ import { Link, NavLink } from 'react-router-dom';
 import loginicon from '../assets/loginicon.png';
 import userIcon from "../assets/user.png";
 import { AuthContext } from './Provider/AuthProvider';
-import { FaSun, FaMoon, FaUser, FaPlus, FaSignOutAlt, FaFolderOpen, FaHome, FaCompass } from 'react-icons/fa';
+import { FaSun, FaMoon, FaUser, FaPlus, FaSignOutAlt, FaFolderOpen, FaHome, FaCompass, FaHeart } from 'react-icons/fa';
 import '../App.css';
 
 const Navbar = () => {
@@ -108,7 +108,7 @@ const Navbar = () => {
             <div className="dropdown dropdown-end">
               <label tabIndex={0} className="btn btn-ghost btn-circle avatar ring-2 ring-amber-500/20 hover:ring-amber-500 transition-all duration-300 cursor-pointer">
                 <div className="w-9 sm:w-10 rounded-full">
-                  <img src={user?.photoURL || userIcon} alt={user?.displayName || "User avatar"} />
+                  <img src={user?.photoURL || userIcon} alt={user?.displayName || "User avatar"} title={user?.displayName || "User"} />
                 </div>
               </label>
               <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[50] p-2 shadow-2xl bg-white dark:bg-slate-900 border border-slate-200/50 dark:border-slate-800/50 rounded-2xl w-64 transition-all duration-300">
@@ -126,6 +126,12 @@ const Navbar = () => {
                   <Link to="/myartifacts" className="flex items-center gap-2.5 py-2 px-3 hover:bg-slate-100 dark:hover:bg-slate-800/60 rounded-xl text-slate-700 dark:text-slate-300 transition-all duration-200">
                     <FaFolderOpen className="text-amber-500 text-sm" />
                     <span>My Artifacts</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/liked-artifacts" className="flex items-center gap-2.5 py-2 px-3 hover:bg-slate-100 dark:hover:bg-slate-800/60 rounded-xl text-slate-700 dark:text-slate-300 transition-all duration-200">
+                    <FaHeart className="text-amber-500 text-sm" />
+                    <span>Liked Artifacts</span>
                   </Link>
                 </li>
                 <li>
@@ -166,6 +172,7 @@ const Navbar = () => {
                 <>
                   <li><NavLink to="/addartifacts" className={linkClass}><FaPlus className="text-sm" /> Add Artifact</NavLink></li>
                   <li><NavLink to="/myartifacts" className={linkClass}><FaFolderOpen className="text-sm" /> My Artifacts</NavLink></li>
+                  <li><NavLink to="/liked-artifacts" className={linkClass}><FaHeart className="text-sm" /> Liked Artifacts</NavLink></li>
                   <li><NavLink to="/updateprofile" className={linkClass}><FaUser className="text-sm" /> My Profile</NavLink></li>
                 </>
               ) : (

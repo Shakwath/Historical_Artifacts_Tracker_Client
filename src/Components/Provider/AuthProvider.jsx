@@ -7,6 +7,7 @@ import {
   updateProfile,
 } from 'firebase/auth';
 import auth from '../../Firebase.init';
+import axiosSecure from '../../api/axiosSecure';
 
 // eslint-disable-next-line react-refresh/only-export-components
 export const AuthContext = createContext();
@@ -17,8 +18,28 @@ export const AuthContext = createContext();
  
   
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, currentUser => {
+    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       setUser(currentUser);
+      if (currentUser) {
+        // Issue JWT token
+        try {
+          const response = await axiosSecure.post('/jwt', { email: currentUser.email });
+          if (response.data.success) {
+            localStorage.setItem('token', response.data.token);
+          }
+        } catch (error) {
+          console.error("Failed to issue JWT token:", error);
+        }
+      } else {
+        // Clear JWT token
+        try {
+          await axiosSecure.post('/logout');
+        } catch (error) {
+          console.error("Failed to call logout on backend:", error);
+        } finally {
+          localStorage.removeItem('token');
+        }
+      }
       setLoading(false);
     });
     return unsubscribe;
