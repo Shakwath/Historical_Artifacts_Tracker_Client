@@ -1,6 +1,6 @@
-# 🏛️ Historical Artifacts Tracker (Chronicles Registry)
+# 🏛️ Chronicles Registry | Historical Artifacts Tracker
 
-An elegant, interactive platform designed to catalog, track, and conserve historical treasures from across the globe. Users can explore humanity's shared chronicles, log new discoveries, upvote/like artifacts, and manage their personal collections through private, responsive dashboards.
+**Chronicles Registry** — An elegant, interactive platform to catalog, archive, and conserve historical treasures. Search the gallery, log new discoveries, upvote submissions, and manage personal collections — all in one secure dashboard. Built for history enthusiasts who want to preserve humanity's shared chronicle.
 
 ## Live Link
 *   **Frontend (Firebase Hosting):** [https://simple-firebase-fe002.web.app](https://simple-firebase-fe002.web.app)
