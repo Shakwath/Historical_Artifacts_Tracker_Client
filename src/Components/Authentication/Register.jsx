@@ -3,6 +3,7 @@ import Registeri from '../../assets/signup.png';
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../Provider/AuthProvider";
 import { FaUser, FaLink, FaEnvelope, FaLock, FaEye, FaEyeSlash } from "react-icons/fa";
+import toast from "react-hot-toast";
 
 const Register = () => {
   const { createUser, setUser, updateUser } = useContext(AuthContext);
@@ -35,6 +36,7 @@ const Register = () => {
     // Name validation
     if (name.length < 5) {
       setNameError("Name should be more than 5 characters.");
+      toast.error("Name should be more than 5 characters.");
       return;
     } else {
       setNameError("");
@@ -44,6 +46,7 @@ const Register = () => {
     const pwdError = validatePassword(password);
     if (pwdError) {
       setPasswordError(pwdError);
+      toast.error(pwdError);
       return;
     } else {
       setPasswordError("");
@@ -57,16 +60,18 @@ const Register = () => {
         updateUser({ displayName: name, photoURL: photo })
           .then(() => {
             setUser({ ...user, displayName: name, photoURL: photo });
+            toast.success("Account created successfully!");
             navigate("/");
           })
           .catch(() => {
             // Even if updateProfile fails, navigate
             setUser(user);
+            toast.success("Account created successfully!");
             navigate("/");
           });
       })
       .catch((error) => {
-        alert(error.message);
+        toast.error(error.message || "Registration failed");
       });
   };
 
