@@ -3,7 +3,7 @@
 **Chronicles Registry** — An elegant, interactive platform to catalog, archive, and conserve historical treasures. Search the gallery, log new discoveries, upvote submissions, and manage personal collections — all in one secure dashboard. Built for history enthusiasts who want to preserve humanity's shared chronicle.
 
 ## Live Link
-*   **Frontend (Firebase Hosting):** [https://simple-firebase-fe002.web.app](https://simple-firebase-fe002.web.app)
+*   **Frontend (Firebase Hosting):** [https://historical-artifacts-shakwath.web.app](https://historical-artifacts-shakwath.web.app)
 *   **Backend API:** Deployed separately (base URL configurable via `.env` / axios client)
 *   *Note: Replace the local base URL in `src/api/axiosSecure.js` for production use.*
 
