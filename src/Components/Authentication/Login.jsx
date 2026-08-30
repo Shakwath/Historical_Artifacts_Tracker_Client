@@ -1,7 +1,7 @@
 import React, { useState, useContext, useRef } from "react";
 import google from "../../assets/Google.png";
 import github from "../../assets/github.png";
-import login from "../../assets/login-illustration.png";
+import login from "../../assets/login-illustration.jpg";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Components/Provider/AuthProvider";
 import {

@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import Registeri from '../../assets/signup.png';
+import Registeri from '../../assets/signup.jpg';
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../Provider/AuthProvider";
 import { FaUser, FaLink, FaEnvelope, FaLock, FaEye, FaEyeSlash } from "react-icons/fa";
